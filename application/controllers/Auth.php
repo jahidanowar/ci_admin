@@ -6,10 +6,11 @@ class Auth extends MY_Controller{
     function __construct(){
         parent::__construct();
         $this->load->model('auth_model');
-        $this->logged_in();
+        
     }
 
     function index(){
+        $this->logged_in();
         //Render Login Page
         $data['title'] = 'Login';
 
@@ -25,6 +26,7 @@ class Auth extends MY_Controller{
     }
 
     private function login(){
+        $this->logged_in();
         $email = $this->input->post('email');
         $password = $this->input->post('password');
 
