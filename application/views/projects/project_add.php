@@ -31,9 +31,12 @@
                     <label for="projectType">Project Type</label>
                     <select class="form-control" name="project_type" id="project_type" class="fotm-control">
                         <option value="">-- Chose an Option --</option>
-                        <option value="1">Web Development</option>
+                        <!-- <option value="1">Web Development</option>
                         <option value="2">Graphics Designing</option>
-                        <option value="3">SEO</option>
+                        <option value="3">SEO</option> -->
+                        <?php foreach($project_types as $p_t){ ?>
+                        <option value="<?php echo $p_t['id']; ?>"><?php echo $p_t['name']; ?></option>
+                        <?php } ?>
                     </select>
                 </div>
             </div>
@@ -42,9 +45,12 @@
                     <label for="projectStatus">Status</label>
                     <select class="form-control" name="status" id="status" class="fotm-control">
                         <option value="">-- Chose an Option --</option>
-                        <option value="1">Open</option>
+                        <!-- <option value="1">Open</option>
                         <option value="2">Closed</option>
-                        <option value="3">Hold</option>
+                        <option value="3">Hold</option> -->
+                        <?php foreach($project_status as $p_s){ ?>
+                        <option value="<?php echo $p_s['id']; ?>"><?php echo $p_s['name']; ?></option>
+                        <?php } ?>
                     </select>
                 </div>
             </div>

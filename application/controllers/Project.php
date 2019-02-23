@@ -32,6 +32,8 @@ class Project extends MY_Controller{
     public function add(){
         $page = 'projects/project_add';
         $data['title'] = 'Add Projects';
+        $data['project_types'] = $this->project_model->get_project_type();
+        $data['project_status'] = $this->project_model->get_project_status();
 
         $this->form_validation->set_rules('name', 'Name', 'trim|required');
         $this->form_validation->set_rules('project_type', 'Project Type', 'trim|required');
