@@ -20,19 +20,37 @@ class Project_model extends CI_Model{
     }
 
     //get Project Type
-    public function get_project_type($id){
+    public function get_project_type($id=NULL){
         if($id){
             $query  = $this->db->get_where('project_type', array('id'=>$id));
             return $query->row_array();
         }
+        else{
+            $query = $this->db->get('project_type');
+            return $query->result_array();
+        }
+    }
+    // Add Project Type
+    public function add_type($data){
+        return $this->db->insert('project_type',$data);
     }
 
     //get Project Status
-    public function get_project_status($id){
+    public function get_project_status($id=NULL){
         if($id){
             $query  = $this->db->get_where('project_status', array('id'=>$id));
             return $query->row_array();
         }
+        else{
+            $this->db->order_by('id','DESC');
+            $query = $this->db->get('project_status');
+            return $query->result_array();
+        }
     }
+    // Add Project Status
+    public function add_status($data=NULL){
+        return $this->db->insert('project_status',$data);
+    }
+
 
 }
