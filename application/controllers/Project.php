@@ -9,7 +9,7 @@ class Project extends MY_Controller{
     }
 
     function index(){
-        $page = 'project/project_index';
+        $page = 'projects/project_index';
         $data['title'] = 'Projects';
         // $data['projects'] = $this->project_model->get();
         $project_data = $this->project_model->get();
@@ -30,7 +30,7 @@ class Project extends MY_Controller{
     }
 
     public function add(){
-        $page = 'project/project_add';
+        $page = 'projects/project_add';
         $data['title'] = 'Add Projects';
 
         $this->form_validation->set_rules('name', 'Name', 'trim|required');
@@ -83,12 +83,55 @@ class Project extends MY_Controller{
     public function delete($id){
 
     }
-
     // Type and Status
-
     public function type(){
-        $page = 'project/project_type';
+        $page = 'projects/project_type';
         $data['title'] = 'Manage Project Type';
-        $this->render_page($page,$data);
+        $data['project_types'] = $this->project_model->get_project_type();
+
+        $this->form_validation->set_rules('name', 'Name', 'trim|required');
+        if($this->form_validation->run() == FALSE){
+            $this->render_page($page,$data);
+        }
+        else{
+            $data = array(
+                'name'=>$this->input->post('name')
+            );
+            $result = $this->project_model->add_type($data);
+            if($result == TRUE){
+                $this->session->set_flashdata('suc', 'Project Type Added !');
+                redirect('project/type');
+            }
+            else{
+                $this->session->set_flashdata('err', 'Something Went Wrong Try Again.');
+                redirect('project/type');
+            }
+        }
+    }
+
+    //Status
+    public function status(){
+        $page = 'projects/project_status';
+        $data['title'] = 'Manage Project Status';
+        $data['project_status'] = $this->project_model->get_project_status();
+
+        $this->form_validation->set_rules('name', 'Name', 'trim|required');
+        if($this->form_validation->run() == FALSE){
+            $this->render_page($page,$data);
+        }
+        else{
+            $data = array(
+                'name'=>$this->input->post('name')
+            );
+            $result = $this->project_model->add_status($data);
+            if($result == TRUE){
+                $this->session->set_flashdata('suc', 'Project status Added !');
+                redirect('project/status');
+            }
+            else{
+                $this->session->set_flashdata('err', 'Something Went Wrong Try Again.');
+                redirect('project/status');
+            }
+        }
     }
 }
