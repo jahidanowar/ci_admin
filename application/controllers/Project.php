@@ -55,6 +55,13 @@ class Project extends MY_Controller{
         }
     }
 
+    public function view($id){
+        if($id){
+            print_r($this->project_model->get($id));
+        }
+        
+    }
+
     public function edit($id){
         
     }

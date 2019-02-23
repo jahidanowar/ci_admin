@@ -33,7 +33,7 @@
             <td><?php echo $project['project_status_id']; ?></td>
             <td class="text-center">
                 <div class="btn-group">
-                    <a href="#" class="btn btn-xs btn-primary viewProject" id="viewProject"><i class="far fa-eye"></i></a>
+                    <a href="#" class="btn btn-xs btn-primary viewProject" id="viewProject" data-id="<?php echo $project['id']; ?>"><i class="far fa-eye"></i></a>
                     <a href="#" class="btn btn-xs btn-warning"><i class="far fa-edit"></i></a>
                     <a href="#" class="btn btn-xs btn-danger"><i class="far fa-trash-alt"></i></a>
                 </div>
@@ -61,7 +61,6 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
@@ -78,7 +77,10 @@
 
 <script>
 $('.viewProject').click(function(){
-
+    var id = $(this).attr('data-id');
     $('#viewProjectModal').modal('show');
+    $.post('project/view/'+id, function(data){
+        $('.modal-body').html(data);
+    })
 })
 </script>
