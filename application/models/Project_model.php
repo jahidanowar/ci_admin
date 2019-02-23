@@ -18,4 +18,21 @@ class Project_model extends CI_Model{
             return $query->result_array();
         }
     }
+
+    //get Project Type
+    public function get_project_type($id){
+        if($id){
+            $query  = $this->db->get_where('project_type', array('id'=>$id));
+            return $query->row_array();
+        }
+    }
+
+    //get Project Status
+    public function get_project_status($id){
+        if($id){
+            $query  = $this->db->get_where('project_status', array('id'=>$id));
+            return $query->row_array();
+        }
+    }
+
 }

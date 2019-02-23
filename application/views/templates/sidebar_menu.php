@@ -54,6 +54,8 @@
     <div class="bg-white py-2 collapse-inner rounded">
       <a class="collapse-item" href="<?php echo site_url('project/add'); ?>">Add Project</a>
       <a class="collapse-item" href="<?php echo site_url('project'); ?>">View Project</a>
+      <a class="collapse-item" href="<?php echo site_url('project/type'); ?>">Project Type</a>
+      <a class="collapse-item" href="<?php echo site_url('project/status'); ?>">Project Status</a>
     </div>
   </div>
 </li>

@@ -9,14 +9,28 @@ class Project extends MY_Controller{
     }
 
     function index(){
-        $page = 'project_index';
+        $page = 'project/project_index';
         $data['title'] = 'Projects';
-        $data['projects'] = $this->project_model->get();
+        // $data['projects'] = $this->project_model->get();
+        $project_data = $this->project_model->get();
+        $project_final_data = array();
+
+        foreach ($project_data as $k => $v) {
+            $project_type = $this->project_model->get_project_type($v['project_types_id']);
+            $project_status = $this->project_model->get_project_status($v['project_status_id']);
+
+            $project_final_data[$k] = $v;
+            $project_final_data[$k]['project_type'] = $project_type;
+            $project_final_data[$k]['project_status'] = $project_status;
+            
+        }
+        // print_r($project_final_data);
+        $data['projects'] = $project_final_data;
         $this->render_page($page,$data);
     }
 
     public function add(){
-        $page = 'project_add';
+        $page = 'project/project_add';
         $data['title'] = 'Add Projects';
 
         $this->form_validation->set_rules('name', 'Name', 'trim|required');
@@ -28,13 +42,11 @@ class Project extends MY_Controller{
         else{
             //Convert User Arry To String and Separete by Comma
             $user_arr = array_unique($this->input->post('user'));
-            $team = implode(', ', $user_arr);
-            $date = date();
+            $team = implode(',', $user_arr);
 
             $data = array(
                 'project_types_id' => $this->input->post('project_type'),
                 'project_status_id' => $this->input->post('status'),
-                'created_at' => $date,
                 'name' => $this->input->post('name'),
                 'live_url' => $this->input->post('live_url'),
                 'test_url' => $this->input->post('test_url'),
@@ -56,13 +68,27 @@ class Project extends MY_Controller{
     }
 
     public function view($id){
+
         if($id){
-            print_r($this->project_model->get($id));
+           $data['project'] = $this->project_model->get($id);
+           $this->load->view('ajax/project_view',$data);
         }
         
     }
 
     public function edit($id){
         
+    }
+
+    public function delete($id){
+
+    }
+
+    // Type and Status
+
+    public function type(){
+        $page = 'project/project_type';
+        $data['title'] = 'Manage Project Type';
+        $this->render_page($page,$data);
     }
 }

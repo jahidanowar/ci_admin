@@ -24,13 +24,15 @@
         </tr>
         </thead>
         <tbody>
-        <?php foreach($projects as $project){ ?>
+        <?php 
+          foreach($projects as $project){
+          ?>
         <tr>
             <td><?php echo $project['id']; ?></td>
             <td><?php echo $project['name']; ?></td>
             <td><?php echo $project['created_at']; ?></td>
-            <td><?php echo $project['project_types_id']; ?></td>
-            <td><?php echo $project['project_status_id']; ?></td>
+            <td><?php echo $project['project_type']['name']; ?></td>
+            <td><?php echo $project['project_status']['name']; ?></td>
             <td class="text-center">
                 <div class="btn-group">
                     <a href="#" class="btn btn-xs btn-primary viewProject" id="viewProject" data-id="<?php echo $project['id']; ?>"><i class="far fa-eye"></i></a>
