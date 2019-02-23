@@ -26,7 +26,21 @@ class Project extends MY_Controller{
             $this->render_page($page,$data);
         }
         else{
+            //Convert User Arry To String and Separete by Comma
+            $user_arr = array_unique($this->input->post('user'));
+            $team = implode(', ', $user_arr);
 
+            $data = array(
+                'project_type' => $this->input->post('project_type'),
+                'status' => $this->input->post('status'),
+                'name' => $this->input->post('name'),
+                'live_url' => $this->input->post('live_url'),
+                'test_url' => $this->input->post('test_url'),
+                'dead_line' => $this->input->post('dead_line'),
+                'description' => $this->input->post('description'),
+                'file_url' => $this->input->post('file_url'),
+                'team' => $team;
+            );
             $result = $this->project_model->add($data);
             if($result == TRUE){
                 $this->session->set_flashdata('suc', 'Project Added !');

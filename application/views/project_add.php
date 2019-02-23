@@ -86,37 +86,37 @@
                 <div class="col">
                     <label>Designier</label>
                     <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="customCheck1" name="user">
+                        <input type="checkbox" class="custom-control-input" id="customCheck1" name="user[]" value="1">
                         <label class="custom-control-label" for="customCheck1">Jahid</label>
                     </div>
                     <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="customCheck2" name="user">
+                        <input type="checkbox" class="custom-control-input" id="customCheck2" name="user[]" value="2">
                         <label class="custom-control-label" for="customCheck2">Moshiur</label>
                     </div>
                 </div>
                 <div class="col">
                     <label>Developer</label>
                     <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="customCheck3" name="user">
+                        <input type="checkbox" class="custom-control-input" id="customCheck3" name="user[]" value="1">
                         <label class="custom-control-label" for="customCheck3">Jahid</label>
                     </div>
                     <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="customCheck4" name="user">
+                        <input type="checkbox" class="custom-control-input" id="customCheck4" name="user[]" value="3">
                         <label class="custom-control-label" for="customCheck4">Milon</label>
                     </div>
                 </div>
                 <div class="col">
                     <label>Marketer</label>
                     <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="customCheck5" name="user">
+                        <input type="checkbox" class="custom-control-input" id="customCheck5" name="user[]" value="1">
                         <label class="custom-control-label" for="customCheck5">Jahid</label>
                     </div>
                     <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="customCheck6" name="user">
+                        <input type="checkbox" class="custom-control-input" id="customCheck6" name="user[]" value="4">
                         <label class="custom-control-label" for="customCheck6">Soikat</label>
                     </div>
                     <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="customCheck7" name="user">
+                        <input type="checkbox" class="custom-control-input" id="customCheck7" name="user[]" value="2">
                         <label class="custom-control-label" for="customCheck7">Moshiur</label>
                     </div>
                 </div>
