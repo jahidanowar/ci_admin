@@ -81,7 +81,7 @@
         </div>
         <div class="form-group">
             <label for="description">Description</label>
-            <textarea name="description" id="description" class="form-control"><?php echo set_value('description'); ?></textarea>
+            <textarea name="description" id="editor" class="form-control"><?php echo set_value('description'); ?></textarea>
         </div>
 
         <!-- Team Assignment Form  -->
@@ -147,3 +147,9 @@
 $('#project_type').val('<?php echo set_value('project_type'); ?>');
 $('#status').val('<?php echo set_value('status'); ?>');
 </script>
+<!-- <script src="//cdn.ckeditor.com/4.11.2/standard/ckeditor.js"></script>
+<script>
+    
+    CKEDITOR.replace( 'editor' );
+    
+</script> -->

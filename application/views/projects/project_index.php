@@ -10,8 +10,21 @@
     <h6 class="m-0 font-weight-bold text-primary">All Projects</h6>
 </div>
 <div class="card-body">
-    <div class="table-responsive">
-    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+
+<!-- show error message -->
+<?php if($this->session->flashdata('suc')): ?>
+        <div class="alert alert-success my-2"><?php echo $this->session->flashdata('suc'); ?>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+    <?php endif; ?>
+    <?php if($this->session->flashdata('err')): ?>
+        <div class="alert alert-danger my-2"><?php echo $this->session->flashdata('err'); ?>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+    <?php endif; ?>
+
+  <div class="table-responsive">
+    <table class="table table-bordered" id="manageTable" width="100%" cellspacing="0">
         <thead>
         <tr>
             <th>ID</th>
@@ -23,32 +36,13 @@
 
         </tr>
         </thead>
-        <tbody>
-        <?php 
-          foreach($projects as $project){
-          ?>
-        <tr>
-            <td><?php echo $project['id']; ?></td>
-            <td><?php echo $project['name']; ?></td>
-            <td><?php echo $project['created_at']; ?></td>
-            <td><?php echo $project['project_type']['name']; ?></td>
-            <td><?php echo $project['project_status']['name']; ?></td>
-            <td class="text-center">
-                <div class="btn-group">
-                    <a href="#" class="btn btn-xs btn-primary viewProject" id="viewProject" data-id="<?php echo $project['id']; ?>"><i class="far fa-eye"></i></a>
-                    <a href="#" class="btn btn-xs btn-warning"><i class="far fa-edit"></i></a>
-                    <a href="#" class="btn btn-xs btn-danger"><i class="far fa-trash-alt"></i></a>
-                </div>
-            </td>
-        </tr>
-        <?php } ?>
-        </tbody>
+
     </table>
-    </div>
+  </div>
 </div>
 </div>
 
-<!-- Modal -->
+<!-- View Modal -->
 <div class="modal fade" id="viewProjectModal" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -68,21 +62,74 @@
   </div>
 </div>
 
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteProjectModal" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete Project</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Do you want to Delete the Project ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger">Yes</button>        
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Modal -->
+<div class="modal fade" id="editProjectModal" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Project</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+      </div>
+      <div class="modal-footer">       
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+$(document).ready(function() {
+
+  var manageTable = $('#manageTable').DataTable({
+    "ajax": "project/project_show",
+  });
+
+});
+
+// edit function
+function editFunc(id)
+{ 
+  $.ajax({
+    url:'project/edit/'+id,
+    type:'POST',
+    success:function(data){
+      $('#editProjectModal .modal-body').html(data);
+      manageTable.ajax.reload();
+    }
+  })
+}
 
 
- <!-- Page level plugins -->
- <script src="<?php echo base_url(); ?>assets/vendor/datatables/jquery.dataTables.min.js"></script>
-  <script src="<?php echo base_url(); ?>assets/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+</script>
+<!-- Page level plugins -->
+<script src="<?php echo base_url(); ?>assets/vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
   <!-- Page level custom scripts -->
 <script src="<?php echo base_url(); ?>assets/js/demo/datatables-demo.js"></script>
-
-<script>
-$('.viewProject').click(function(){
-    var id = $(this).attr('data-id');
-    $('#viewProjectModal').modal('show');
-    $.post('project/view/'+id, function(data){
-        $('.modal-body').html(data);
-    })
-})
-</script>

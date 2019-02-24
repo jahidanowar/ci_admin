@@ -19,6 +19,13 @@ class Project_model extends CI_Model{
         }
     }
 
+    public function update($id,$data){
+        if($id && $data){
+            $this->db->where('id',$id);
+            return $this->db->update('project',$data);
+        }
+    }
+
     //get Project Type
     public function get_project_type($id=NULL){
         if($id){
