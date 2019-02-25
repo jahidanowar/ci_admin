@@ -231,6 +231,36 @@ class Project extends MY_Controller{
             }
         }
     }
+    //Get Single Project Type
+    public function getProjectType(){
+        $id = $this->input->post('id');
+        $response = array();
+        if($id){
+            $this->form->validation->set_rules('name','Project Type','trim|required');
+            if(!$this->form_validation->run()==FALSE){
+                $result = $this->project_model->get_project_type($id);
+                if($result == true){
+                    $response = array(
+                        'status'=>true,
+                        'message'=>"Project Type Added"
+                    );
+                }
+                else{
+                    $response = array(
+                        'status'=>false,
+                        'message'=>"Something went wrong, Try Again"
+                    );
+                }
+            }
+            else{
+                $response = array(
+                    'status'=>false,
+                    'message'=>$this->validation_errors()
+                );
+            }
+        }
+        echo json_encode($response);
+    }
 
     //Project Status List and Add
     public function status(){
@@ -257,4 +287,5 @@ class Project extends MY_Controller{
             }
         }
     }
+
 }
