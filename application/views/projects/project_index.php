@@ -9,7 +9,11 @@
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
 <div class="card-header py-3">
-    <h6 class="m-0 font-weight-bold text-primary">All Projects</h6>
+    <h6 class="m-0 font-weight-bold text-primary">All Projects
+    <span class="pull-right">
+      <a href="<?php echo site_url('project/add'); ?>" class="badge badge-danger">Add Project <i class="fas fa-plus"></i></a>
+    </span>
+    </h6>
 </div>
 <div class="card-body">
 
@@ -27,7 +31,7 @@
 
   <div class="table-responsive">
     <table class="table table-bordered" id="manageTable" width="100%" cellspacing="0">
-        <thead>
+        <thead class="thead-dark">
         <tr>
             <th>ID</th>
             <th>Name</th>

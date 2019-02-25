@@ -3,7 +3,11 @@
 
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Fill the Form</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Fill the Form
+        <span class="pull-right">
+            <a href="<?php echo site_url('project/'); ?>" class="badge badge-danger">Manage Project <i class="fas fa-tasks"></i></a>
+        </span>
+        </h6>
     </div>
     <div class="card-body">
 
