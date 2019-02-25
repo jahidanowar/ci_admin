@@ -24,6 +24,9 @@ class Project extends MY_Controller{
         $project_data = $this->project_model->get();
         $project_final_data = array();
         $i = 1;
+        if(empty($project_data)){
+            $result = array('data' => array());
+        }
         foreach ($project_data as $k => $v) {
             $project_type = $this->project_model->get_project_type($v['project_types_id']);
             $project_status = $this->project_model->get_project_status($v['project_status_id']);
@@ -231,35 +234,37 @@ class Project extends MY_Controller{
             }
         }
     }
+
     //Get Single Project Type
     public function getProjectType(){
         $id = $this->input->post('id');
-        $response = array();
+
         if($id){
-            $this->form->validation->set_rules('name','Project Type','trim|required');
-            if(!$this->form_validation->run()==FALSE){
-                $result = $this->project_model->get_project_type($id);
-                if($result == true){
-                    $response = array(
-                        'status'=>true,
-                        'message'=>"Project Type Added"
-                    );
-                }
-                else{
-                    $response = array(
-                        'status'=>false,
-                        'message'=>"Something went wrong, Try Again"
-                    );
-                }
+            $result = $this->project_model->get_project_type($id);
+            if($result == true){
+                echo json_encode($result);
             }
             else{
                 $response = array(
                     'status'=>false,
-                    'message'=>$this->validation_errors()
+                    'message'=>"Something went wrong, Try Again"
                 );
+                echo json_encode($response);
             }
         }
+    }
+    //Update Single Project Type
+    public function updateProjectType(){
+        $id = $this->input->post('id');
+        $name = $this->input->post('name');
+        $data = array(
+            'id'=>$id,
+            'name'=>$name
+        );
+        $result = $this->project_model->update_project_type($id,$data);
+        $response = array($id,$name,$result);
         echo json_encode($response);
+
     }
 
     //Project Status List and Add
