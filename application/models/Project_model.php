@@ -14,6 +14,7 @@ class Project_model extends CI_Model{
             return $query->row_array();
         }
         else{
+            $this->db->order_by('id', 'DESC');
             $query = $this->db->get('project');
             return $query->result_array();
         }
@@ -23,6 +24,13 @@ class Project_model extends CI_Model{
         if($id && $data){
             $this->db->where('id',$id);
             return $this->db->update('project',$data);
+        }
+    }
+
+    public function delete($id){
+        if($id){
+            $this->db->where('id', $id);
+            return $this->db->delete('project');
         }
     }
 
