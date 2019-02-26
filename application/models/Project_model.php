@@ -56,6 +56,13 @@ class Project_model extends CI_Model{
             return $this->db->update('project_type',$data);
         }
     }
+    //delete Project type
+    public function delete_project_type($id){
+        if($id){
+            $this->db->where('id',$id);
+            return $this->db->delete('project_type');
+        }
+    }
 
     //get Project Status
     public function get_project_status($id=NULL){

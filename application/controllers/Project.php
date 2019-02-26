@@ -253,6 +253,30 @@ class Project extends MY_Controller{
             }
         }
     }
+    //Get Project Type List
+    public function getProjectTypeList(){
+        $response['data'] = array();
+        $project_types = $this->project_model->get_project_type();
+
+        if(!empty($project_types)){
+            $i = 1;
+            foreach ($project_types as $key => $value) {
+                $response['data'][$key] = array(
+                    $i++,
+                    $value['name'],
+                    '<div class="text-center">
+                    <div class="btn-group">
+                    <a href="#" class="btn btn-xs btn-warning editBtn" data-id="'.$value['id'].'"><i class="far fa-edit"></i></a>
+                    <a href="#" class="btn btn-xs btn-danger deleteBtn" data-id="'.$value['id'].'"><i class="far fa-trash-alt"></i></a>
+                    </div>
+                    </div>
+                    '
+                );
+            }
+        }
+
+        echo json_encode($response);
+    }
     //Update Single Project Type
     public function updateProjectType(){
         $id = $this->input->post('id');
@@ -266,6 +290,18 @@ class Project extends MY_Controller{
         echo json_encode($response);
 
     }
+    //Delete Project Type
+    public function deleteProjectType(){
+        $id = $this->input->post('id');
+        if($id){
+            $result = $this->project_model->delete_project_type($id);
+            $response = array(
+                'status'=>true,
+                'message'=>"Project Type Deleted"
+            );
+            echo json_encode($response);
+        }
+    } 
 
     //Project Status List and Add
     public function status(){

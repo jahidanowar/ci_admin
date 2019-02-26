@@ -1,3 +1,5 @@
+<!-- Custom styles for this page -->
+<link href="<?php echo base_url(); ?>assets/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 <!-- Page Heading -->
 <h1 class="h3 mb-2 text-gray-800">Manage Project Types</h1>
 
@@ -41,8 +43,8 @@
                 <h6 class="m-0 font-weight-bold text-primary">All Project Type</h6>
             </div>
             <div class="card-body">
-                <table class="table">
-                    <thead>
+                <table class="table" id="myTable" width="100%" cellspacing="0">
+                    <thead class="thead-dark"> 
                         <tr>
                             <td>ID</td>
                             <td>Name</td>
@@ -96,6 +98,15 @@
 
 <script>
 $(document).ready(function(){
+    //Initialise Data Table
+    var myTable = $('#myTable').DataTable({
+        "ajax": '<?php echo site_url("project/getProjectTypeList"); ?>',
+        autoWidth: false,
+        paging: false,
+        searching: false,
+        ordering:  false
+    });
+
     //Load data on Edit Form
     $(document).on('click', '.editBtn',function(){
         var id = $(this).attr('data-id');
@@ -112,6 +123,7 @@ $(document).ready(function(){
             }
         });
     });
+    
     //Update data
     $(document).on('submit','#editForm', function(e){
         e.preventDefault();
@@ -123,7 +135,9 @@ $(document).ready(function(){
             data:ProjectTypeData,
             dataType:'JSON',
             success: function(r){
+                myTable.ajax.reload();
                 $("#editModal").modal('hide');
+
             }
         })
     })
@@ -132,6 +146,23 @@ $(document).ready(function(){
     $(document).on('click', '.deleteBtn',  function(){
         var id = $(this).attr('data-id');
         console.log(id);
+        $.ajax({
+            type:'POST',
+            url:'<?php echo site_url('project/deleteProjectType'); ?>',
+            data:{id:id},
+            dataType:'JSON',
+            success: function(r){
+                console.log(r);
+                myTable.ajax.reload();
+
+            }
+        })
     })
 })
 </script>
+<!-- Page level plugins -->
+<script src="<?php echo base_url(); ?>assets/vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+  <!-- Page level custom scripts -->
+<script src="<?php echo base_url(); ?>assets/js/demo/datatables-demo.js"></script>
