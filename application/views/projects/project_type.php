@@ -123,7 +123,7 @@ $(document).ready(function(){
             }
         });
     });
-    
+
     //Update data
     $(document).on('submit','#editForm', function(e){
         e.preventDefault();
@@ -137,7 +137,7 @@ $(document).ready(function(){
             success: function(r){
                 myTable.ajax.reload();
                 $("#editModal").modal('hide');
-
+                notifyFunc(r.message,'success');
             }
         })
     })
@@ -152,9 +152,8 @@ $(document).ready(function(){
             data:{id:id},
             dataType:'JSON',
             success: function(r){
-                console.log(r);
                 myTable.ajax.reload();
-
+                notifyFunc(r.message,'success');
             }
         })
     })

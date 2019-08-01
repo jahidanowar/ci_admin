@@ -286,7 +286,10 @@ class Project extends MY_Controller{
             'name'=>$name
         );
         $result = $this->project_model->update_project_type($id,$data);
-        $response = array($id,$name,$result);
+        $response = array(
+            'status'=>true,
+            'message'=>"Project Type Updated"
+        );
         echo json_encode($response);
 
     }
@@ -329,4 +332,74 @@ class Project extends MY_Controller{
         }
     }
 
+    //Get Single Status Type
+    public function getProjectStatus(){
+        $id = $this->input->post('id');
+
+        if($id){
+            $result = $this->project_model->get_project_status($id);
+            if($result == true){
+                echo json_encode($result);
+            }
+            else{
+                $response = array(
+                    'status'=>false,
+                    'message'=>"Something went wrong, Try Again"
+                );
+                echo json_encode($response);
+            }
+        }
+    }
+    //Get Project Status List
+    public function getProjectStatusList(){
+        $response['data'] = array();
+        $project_status = $this->project_model->get_project_status();
+
+        if(!empty($project_status)){
+            $i = 1;
+            foreach ($project_status as $key => $value) {
+                $response['data'][$key] = array(
+                    $i++,
+                    $value['name'],
+                    '<div class="text-center">
+                    <div class="btn-group">
+                    <a href="#" class="btn btn-xs btn-warning editBtn" data-id="'.$value['id'].'"><i class="far fa-edit"></i></a>
+                    <a href="#" class="btn btn-xs btn-danger deleteBtn" data-id="'.$value['id'].'"><i class="far fa-trash-alt"></i></a>
+                    </div>
+                    </div>
+                    '
+                );
+            }
+        }
+
+        echo json_encode($response);
+    }
+    //Update Single Project Status
+    public function updateProjectStatus(){
+        $id = $this->input->post('id');
+        $name = $this->input->post('name');
+        $data = array(
+            'id'=>$id,
+            'name'=>$name
+        );
+        $result = $this->project_model->update_project_status($id,$data);
+        $response = array(
+            'status'=>true,
+            'message'=>"Project Type Updated"
+        );
+        echo json_encode($response);
+
+    }
+    //Delete Project Status
+    public function deleteProjectStatus(){
+        $id = $this->input->post('id');
+        if($id){
+            $result = $this->project_model->delete_project_status($id);
+            $response = array(
+                'status'=>true,
+                'message'=>"Project Type Deleted"
+            );
+            echo json_encode($response);
+        }
+    } 
 }

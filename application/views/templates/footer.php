@@ -38,7 +38,17 @@
 
 <!-- Custom -->
 <script type="text/javascript">
-    
+    //Notification Function
+function notifyFunc(message,type){
+  $.notify({
+    // options
+    message: message 
+    },{
+    // settings
+    type: type,
+    z_index: 1100
+  }); 
+}
 </script>  
 
 </body>

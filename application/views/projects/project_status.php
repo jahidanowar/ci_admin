@@ -1,3 +1,5 @@
+<!-- Custom styles for this page -->
+<link href="<?php echo base_url(); ?>assets/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 <!-- Page Heading -->
 <h1 class="h3 mb-2 text-gray-800">Manage Project Status</h1>
 
@@ -41,7 +43,7 @@
                 <h6 class="m-0 font-weight-bold text-primary">All Project Status</h6>
             </div>
             <div class="card-body">
-                <table class="table">
+                <table class="table" id="myTable">
                     <thead>
                         <tr>
                             <td>ID</td>
@@ -68,3 +70,97 @@
         </div>
     </div>
 </div>
+
+<!-- Edit Modal -->
+<div class="modal fade" id="editModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Project Status</h5>
+                <button class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form action="#" id="editForm" method="POST">
+                <input type="hidden" name="id" id="id">
+                    <div class="form-group">
+                        <label for="">Name</label>
+                        <input type="text" name="name" id="name" class="form-control">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Update</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+$(document).ready(function(){
+    //Initialise Data Table
+    var myTable = $('#myTable').DataTable({
+        "ajax": '<?php echo site_url("project/getProjectStatusList"); ?>',
+        autoWidth: false,
+        paging: false,
+        searching: false,
+        ordering:  false
+    });
+
+    //Edit Modal Trigger and Getting Edit Form Data
+    $(document).on('click', '.editBtn', function(){
+        var id =  $(this).data('id');
+        $('#editModal').modal('show');
+        
+        $.ajax({
+            type:'POST',
+            url:'<?php echo site_url('project/getProjectStatus') ?>',
+            data:{id:id},
+            dataType:'JSON',
+            success: function(r){
+                $('#editForm input[name="name"]').val(r.name);
+                $('#editForm input[name="id"]').val(r.id);
+            }
+        })
+
+    })
+
+    //Update Edit Form 
+    $(document).on('submit', '#editForm', function(e){
+        e.preventDefault();
+        var projectStatusData = $(this).serialize();
+
+        $.ajax({
+            type:'POST',
+            url:'<?php echo site_url('project/updateProjectStatus') ?>',
+            data:projectStatusData,
+            dataType:'JSON',
+            success: function(r){
+                myTable.ajax.reload();
+                $('#editModal').modal('hide');
+                notifyFunc(r.message,'success');
+            }
+        })
+    })
+
+    //Delete Project Status
+    $(document).on('click', '.deleteBtn', function(){
+        var id = $(this).data('id');
+
+        $.ajax({
+            type:'POST',
+            url:'<?php echo site_url('project/deleteProjectStatus') ?>',
+            data:{id:id},
+            dataType:'JSON',
+            success : function(r){
+                myTable.ajax.reload();
+                notifyFunc(r.message, 'success');
+            }
+        })
+    })
+
+})
+</script>
+<!-- Page level plugins -->
+<script src="<?php echo base_url(); ?>assets/vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+  <!-- Page level custom scripts -->
+<script src="<?php echo base_url(); ?>assets/js/demo/datatables-demo.js"></script>

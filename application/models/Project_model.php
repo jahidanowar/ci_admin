@@ -20,6 +20,12 @@ class Project_model extends CI_Model{
         }
     }
 
+    public function search_project($str){
+        $this->db->like('name', $str);
+        $query = $this->db->get('project');
+        return $query->result_array();
+    }
+
     public function update($id,$data){
         if($id && $data){
             $this->db->where('id',$id);
@@ -81,5 +87,18 @@ class Project_model extends CI_Model{
         return $this->db->insert('project_status',$data);
     }
 
+    public function update_project_status($id,$data){
+        if($id && $data){
+            $this->db->where('id',$id);
+            return $this->db->update('project_status',$data);
+        }
+    }
+    //delete Project type
+    public function delete_project_status($id){
+        if($id){
+            $this->db->where('id',$id);
+            return $this->db->delete('project_status');
+        }
+    }
 
 }

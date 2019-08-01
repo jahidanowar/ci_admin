@@ -19,15 +19,15 @@
 
 <!-- show error message -->
 <?php if($this->session->flashdata('suc')): ?>
-        <div class="alert alert-success my-2"><?php echo $this->session->flashdata('suc'); ?>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        </div>
-    <?php endif; ?>
-    <?php if($this->session->flashdata('err')): ?>
-        <div class="alert alert-danger my-2"><?php echo $this->session->flashdata('err'); ?>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        </div>
-    <?php endif; ?>
+    <div class="alert alert-success my-2"><?php echo $this->session->flashdata('suc'); ?>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    </div>
+<?php endif; ?>
+<?php if($this->session->flashdata('err')): ?>
+    <div class="alert alert-danger my-2"><?php echo $this->session->flashdata('err'); ?>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    </div>
+<?php endif; ?>
 
   <div class="table-responsive">
     <table class="table table-bordered" id="manageTable" width="100%" cellspacing="0">
@@ -45,6 +45,7 @@
 
     </table>
   </div>
+  
 </div>
 </div>
 
@@ -267,6 +268,7 @@ $(document).ready(function() {
 
     });
   })
+  
   //Bootstrap Date Picker
   $('.date').datepicker({
     format: 'dd/mm/yyyy',
@@ -304,18 +306,6 @@ function editFunc(id){
       }
     }
   });
-}
-
-//Notification Function
-function notifyFunc(message,type){
-  $.notify({
-    // options
-    message: message 
-    },{
-    // settings
-    type: type,
-    z_index: 1100
-  }); 
 }
 
 </script>
